@@ -6,8 +6,8 @@ The **HarjTech SharePoint Online Management Toolkit** is a reusable PowerShell s
 
 ### Why use this script?
 
-* **Efficiency** – routine tasks such as creating sites, auditing lists, and modifying metadata are encapsulated into easy‑to‑call functions.  The script uses modern PnP commands like **`New‑PnPSite`**, which the official documentation states is used to create modern site collections and requires a mandatory `-Type` parameter【118114568060417†L849-L856】.  Having these functions in one place reduces the need to search for individual commands and ensures consistency across administrators.
-* **Accuracy** – each function wraps a PnP command with sensible parameter defaults and error handling.  For example, adding a column calls **`Add‑PnPField`**, which adds a field to a list or as a site column【785190958354182†L835-L837】, while adding content types uses **`Add‑PnPContentTypeToList`**, allowing you to set the default content type【69259419889438†L810-L823】.  Using these commands through a script helps avoid mis‑typed parameters and destructive mistakes.
+* **Efficiency** – routine tasks such as creating sites, auditing lists, and modifying metadata are encapsulated into easy‑to‑call functions.  The script uses modern PnP commands like **`New‑PnPSite`**, which the official documentation states is used to create modern site collections and requires a mandatory `-Type` parameter.  Having these functions in one place reduces the need to search for individual commands and ensures consistency across administrators.
+* **Accuracy** – each function wraps a PnP command with sensible parameter defaults and error handling.  For example, adding a column calls **`Add‑PnPField`**, which adds a field to a list or as a site column, while adding content types uses **`Add‑PnPContentTypeToList`**, allowing you to set the default content type.  Using these commands through a script helps avoid mis‑typed parameters and destructive mistakes.
 * **Transparency** – comprehensive comments explain what each function does, why it matters, and how it ties back to SharePoint functionality.  Administrators can quickly understand the impact and purpose of each command.
 * **Portability** – the script works on Windows, Linux, or macOS with PowerShell 7.x and the PnP.PowerShell module installed.  It can be dot‑sourced into any session or imported into existing automation.
 
@@ -17,7 +17,7 @@ The **HarjTech SharePoint Online Management Toolkit** is a reusable PowerShell s
 * **[PnP.PowerShell module](https://github.com/pnp/powershell)** – install via `Install‑Module PnP.PowerShell`.  Ensure it is up to date.
 * **SharePoint Online permissions** – depending on the function, you may need:
   * **Global or SharePoint administrator** rights to create or delete site collections via `New‑PnPSite` and `Remove‑PnPTenantSite`.
-  * **Site collection administrator** rights to manage lists, items, columns, permissions and recycle bin.  For example, retrieving recycle bin items requires site collection admin privileges【92742531835811†L839-L844】 and restoring them uses `Restore‑PnPRecycleBinItem`【248364638113375†L798-L832】.
+  * **Site collection administrator** rights to manage lists, items, columns, permissions and recycle bin.  For example, retrieving recycle bin items requires site collection admin privileges and restoring them uses `Restore‑PnPRecycleBinItem`【248364638113375†L798-L832】.
 * **Tenant admin URL** – to manage tenant‑wide operations (e.g. `GetAllSites` or `DeleteASite`), connect to the tenant admin URL (e.g. `https://tenant-admin.sharepoint.com`) using the `Connect‑HarjTechSPO` function.
 
 ## Usage
@@ -54,7 +54,7 @@ The **HarjTech SharePoint Online Management Toolkit** is a reusable PowerShell s
 | Function | Description |
 |---------|-------------|
 | **Connect‑HarjTechSPO** | Authenticates to a SharePoint Online site or tenant admin site using interactive login and stores the connection for reuse. |
-| **CreateNewSite** | Creates modern site collections (TeamSite, CommunicationSite or TeamSiteWithoutMicrosoft365Group).  As Microsoft notes, this cmdlet requires a `-Type` parameter specifying the site type【118114568060417†L849-L856】. |
+| **CreateNewSite** | Creates modern site collections (TeamSite, CommunicationSite or TeamSiteWithoutMicrosoft365Group).  As Microsoft notes, this cmdlet requires a `-Type` parameter specifying the site type. |
 | **GetASite** | Retrieves properties of the current connection or a specified site. |
 | **DeleteASite** | Deletes a site collection using `Remove‑PnPTenantSite` (requires tenant admin rights). |
 | **GetAllSites** | Lists all site collections in the tenant. |
@@ -62,23 +62,23 @@ The **HarjTech SharePoint Online Management Toolkit** is a reusable PowerShell s
 | **GetAList** | Returns a specific list by name, ID or URL. |
 | **GetAItem** | Retrieves a list item by ID, optionally selecting specific columns. |
 | **GetAllItems** | Retrieves all items from a list with optional field selection and CAML query filtering. |
-| **AddAColumnToaList** | Adds a column to a list using `Add‑PnPField`, which adds a field (column) to a list or site column【785190958354182†L835-L837】. |
+| **AddAColumnToaList** | Adds a column to a list using `Add‑PnPField`, which adds a field (column) to a list or site column. |
 | **RemoveAColumnToAList** | Removes a column from a list with `Remove‑PnPField`. |
 | **UpdateAColumnForSingleItem** | Updates specified column values on a single list item. |
 | **UpdateAColumnForMultipleItems** | Bulk updates items by ID array or CAML query. |
-| **AddContentTypeToList** | Adds an existing content type to a list and optionally sets it as default【69259419889438†L810-L823】. |
-| **GetAllContentTypesBeingUsedOnAList** | Lists all content types associated with a list, using `Get‑PnPContentType`【460062295138079†L811-L849】. |
-| **GetAllPermissionLevelOnASite** | Retrieves all role definitions (permission levels) for the current site【360540768605276†L819-L837】. |
+| **AddContentTypeToList** | Adds an existing content type to a list and optionally sets it as default. |
+| **GetAllContentTypesBeingUsedOnAList** | Lists all content types associated with a list, using `Get‑PnPContentType`. |
+| **GetAllPermissionLevelOnASite** | Retrieves all role definitions (permission levels) for the current site. |
 | **GetAllSPOSitePermissions** | Produces a report of SharePoint groups and their members with assigned roles. |
 | **CheckIfAUserHaveAccessToASite** | Heuristically determines whether a user has access to the current site. |
-| **CheckIfAUserHaveAccessToAList** | Checks a user’s list permissions via `Get‑PnPListPermissions`【39255984457531†L809-L831】. |
-| **CheckIfAUserHaveAccessToAListItem** | Determines if a user has permissions on a specific list item using `Get‑PnPListItemPermission`【832713506089915†L810-L820】. |
+| **CheckIfAUserHaveAccessToAList** | Checks a user’s list permissions via `Get‑PnPListPermissions'. |
+| **CheckIfAUserHaveAccessToAListItem** | Determines if a user has permissions on a specific list item using `Get‑PnPListItemPermission`. |
 | **CheckIfAuserIsinaSharePointGroup** | Verifies group membership for a user. |
 | **GetAllSPOSiteGroups** | Lists all SharePoint groups defined on the current site. |
 | **AddUserToaSPOSIteGroup** | Adds a user to a SharePoint group. |
 | **RemoveUserFromASiteGroup** | Removes a user from a SharePoint group. |
-| **RestoreAItemFromRecycleBin** | Restores items from the recycle bin using `Restore‑PnPRecycleBinItem`【248364638113375†L798-L832】. |
-| **CheckIfFileOrListItemIsWithinTheRecycleBin** | Searches the recycle bin for deleted files or list items; requires site collection admin privileges【92742531835811†L839-L844】. |
+| **RestoreAItemFromRecycleBin** | Restores items from the recycle bin using `Restore‑PnPRecycleBinItem`. |
+| **CheckIfFileOrListItemIsWithinTheRecycleBin** | Searches the recycle bin for deleted files or list items; requires site collection admin privileges. |
 
 ### Parameter Conventions
 
@@ -88,7 +88,7 @@ Most functions accept parameters such as `List`, `Identity`, `ItemId`, `Values`,
 
 * **Site creation and deletion** require connecting to the tenant admin URL and running the session as a SharePoint or global administrator.
 * **List and item operations** require at least site collection administrator privileges on the target site.
-* **Recycle bin functions** require site collection admin rights.  `Get‑PnPRecycleBinItem` returns all items in the recycle bin and is limited to site collection admins【92742531835811†L839-L844】.
+* **Recycle bin functions** require site collection admin rights.  `Get‑PnPRecycleBinItem` returns all items in the recycle bin and is limited to site collection admins.
 
 ## Marketing note
 
